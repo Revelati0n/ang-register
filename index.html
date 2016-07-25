@@ -5,57 +5,68 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register</title>
-	<link href='https://fonts.googleapis.com/css?family=Kanit:500&subset=thai' rel='stylesheet' type='text/css'>
-	<link href="vendor/animate/css/animate.css" rel="stylesheet">
+	  <link href='https://fonts.googleapis.com/css?family=Kanit:500&subset=thai' rel='stylesheet' type='text/css'>
+	  <link href="vendor/animate/css/animate.css" rel="stylesheet">
     <link href="vendor/bootflat/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/bootflat/css/bootflat.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="vendor/sweetalert/css/sweetalert.css" rel="stylesheet">
-    
   </head>
-  <body>
-    <h1>Hello, world!</h1>
-	<div ng-app='testApp' ng-controller='myCtrl'>
-  <h3 ng-class="txt=='aa'?'cl-blue':'cl-red'">class: {{txt}}</h3>  
-  <h3 ng-hide="txt=='ab'">hidden: {{txt}}</h3>
-  <input type="text" ng-model='txt'></input><input type="text" ng-model='txt'></input>
-<button ng-click='goUpdate()'>click here</button>
-<p>{{ txt=='abc' ? 'true' : 'false' }}</p>
-<img ng-src='{{ima}}'>
-<hr/>
-<input ng-model='search' />
-<table border=1 width='100%' class='table table-hover'>
-  <tr>
-  <th>omg</th>
-    <th>name</th>
-    <th>age</th>
-  </tr>
-  <tr ng-repeat='user in users | filter: search'>
-    <td><img ng-src='{{user.img}}'></td>
-    <td>{{user.name}}</td>
-    <td>{{user.age}}</td>
-  </tr>
-  <tr>
-  </tr>
-</table>
-<!--------------------------------->
-</div>
+<body>
+  <div class="container" ng-app="registerApp" ng-controller="regCtrl">
+    <div class="row">
+      <form  name="userForm" ng-submit="submitForm()">
+        <div class="col-md-4 col-md-offset-1">
+            <div class="form-group has-feedback" ng-class="userForm.realname.$invalid ? 'has-error' : 'has-success'" required>
+              <label class="control-label" for="name">ชื่อ - นามสกุล</label>
+              <input type="text" class="form-control" name="realname" id="realname" ng-model="intern['realname']" ng-minlength="5" ng-required="true">
+              <p ng-show="userForm.realname.$error.required" class="help-block">กรุณากรอก ชื่อ - นามสกุล</p>
+              <p ng-show="userForm.realname.$error.minlength" class="help-block">ชื่่อ - นามสกุล ต้องยาว 5 ตัวอักษรขึ้นไป</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+          <div class="form-group has-feedback">
+            <label class="control-label" for="province">จังหวัด</label>
+            <select name="province_name" id="province_name" data-where="2" class="ajax_address form-control">
+               <option value="0">-- เลือกจังหวัด --</option>
+               <option ng-repeat='province in provinces' value="{{province.PROVINCE_ID}}">{{province.PROVINCE_NAME}}</option>
+           </select>
+          </div>
+        </div>
+        </form>
+        <hr>
+        <button ng-click='goUpdate()'>click here</button>
+        <hr>
 
-	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>    
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>    
+    </div>
+  </div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="vendor/bootflat/js/bootstrap.min.js"></script>
     <script src="vendor/sweetalert/js/sweetalert.min.js"></script>
-    
+
   </body>
 </html>
 <script>
-angular.module('testApp', [])
-  .controller('myCtrl', function ($scope, $timeout, $http) {
+angular.module('registerApp', [])
+  .controller('regCtrl', function ($scope, $timeout, $http) {
   $scope.txt = 'abc';
-  
-  $scope.goUpdate = function() {
-    $scope.txt = 'aaaaaa';
-  };  
+/*
+  $scope.geographyUpdate = function(value) {
+    console.log(value);
+    $http({
+      method: 'GET',
+      url: 'api/get.php?var1=1'
+    }).then(function successCallback(response) {
+      console.log(response)
+      $scope.provinces = response.data
+      });
+  };
+*/
+
 });
 </script>
