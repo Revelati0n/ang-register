@@ -15,28 +15,75 @@
 <body>
   <div class="container" ng-app="registerApp" ng-controller="regCtrl">
     <div class="row">
-      <form  name="userForm" ng-submit="submitForm()">
-        <div class="col-md-4 col-md-offset-1">
-            <div class="form-group has-feedback" ng-class="userForm.realname.$invalid ? 'has-error' : 'has-success'" required>
-              <label class="control-label" for="name">ชื่อ - นามสกุล</label>
-              <input type="text" class="form-control" name="realname" id="realname" ng-model="intern['realname']" ng-minlength="5" ng-required="true">
-              <p ng-show="userForm.realname.$error.required" class="help-block">กรุณากรอก ชื่อ - นามสกุล</p>
-              <p ng-show="userForm.realname.$error.minlength" class="help-block">ชื่่อ - นามสกุล ต้องยาว 5 ตัวอักษรขึ้นไป</p>
+      {{ userForm.provinces }}
+      <form name="userForm" ng-submit="submitForm()">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-1">
+              <div class="form-group has-feedback" ng-class="userForm.realname.$invalid ? 'has-error' : 'has-success'" required>
+                <label class="control-label" for="name">ชื่อ - นามสกุล</label>
+                <input type="text" class="form-control" name="realname" id="realname" ng-model="intern['realname']" ng-minlength="5" ng-required="true">
+                <p ng-show="userForm.realname.$error.required" class="help-block">กรุณากรอก ชื่อ - นามสกุล</p>
+                <p ng-show="userForm.realname.$error.minlength" class="help-block">ชื่่อ - นามสกุล ต้องยาว 5 ตัวอักษรขึ้นไป</p>
+              </div>
+          </div>
+          <div class="col-md-4 col-md-offset-1">
+            <div class="form-group has-feedback" ng-class="GEO_ID == '' ? 'has-error' : 'has-success'" required>
+              <label class="control-label" for="geography">ภาค</label>
+              <select name="geographys" id="geographys" ng-model="GEO_ID" ng-change="geographyUpdate()" class="form-control">
+                 <option value="" selected="selected">-- เลือกภาค --</option>
+                 <option value="1">ภาคเหนือ</option>
+                 <option value="2">ภาคกลาง</option>
+                 <option value="3">ภาคตะวันออกเฉียงเหนือ</option>
+                 <option value="4">ภาคตะวันตก</option>
+                 <option value="5">ภาคตะวันออก</option>
+                 <option value="6">ภาคใต้</option>
+             </select>
             </div>
+          </div>
         </div>
-        <div class="col-md-4 col-md-offset-1">
-          <div class="form-group has-feedback">
-            <label class="control-label" for="province">จังหวัด</label>
-            <select name="province_name" id="province_name" data-where="2" class="ajax_address form-control">
-               <option value="0">-- เลือกจังหวัด --</option>
-               <option ng-repeat='province in provinces' value="{{province.PROVINCE_ID}}">{{province.PROVINCE_NAME}}</option>
-           </select>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-1">
+            <div class="form-group has-feedback" ng-class="PROVINCE_ID == '' ? 'has-error' : 'has-success'" required>
+              <label class="control-label" for="province">จังหวัด</label>
+              <select name="provinces" id="provinces" ng-model="PROVINCE_ID" ng-change="provinceUpdate()" class="form-control">
+                 <option value="" selected="selected">-- เลือกจังหวัด --</option>
+                 <option ng-repeat='province in provinces' value="{{province[0]}}">{{province[1]}}</option>
+             </select>
+           </div>
+          </div>
+          <div class="col-md-4 col-md-offset-1">
+            <div class="form-group has-feedback" ng-class="AMPHURE_ID == '' ? 'has-error' : 'has-success'" required>
+              <label class="control-label" for="province">อำเภอ</label>
+              <select name="amphures" id="amphures" ng-model="AMPHURE_ID" ng-change="amphureUpdate()" class="form-control">
+                 <option value="">-- เลือกอำเภอ / เขต --</option>
+                 <option ng-repeat='amphure in amphures' value="{{amphure[0]}}">{{amphure[1]}}</option>
+             </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-1">
+            <div class="form-group has-feedback">
+              <label class="control-label" for="province">ตำบล</label>
+              <select name="districts" id="districts" ng-model="DISTRICT_ID" ng-change="districtUpdate()" class="form-control">
+                 <option value="" selected="selected">-- เลือกตำบล / แขวง --</option>
+                 <option ng-repeat='district in districts' value="{{district[0]}}">{{district[1]}}</option>
+             </select>
+           </div>
+          </div>
+          <div class="col-md-4 col-md-offset-1">
+            <div class="form-group has-feedback" ng-class="userForm.zipcode.$invalid ? 'has-error' : 'has-success'" required>
+              <label class="control-label" for="name">รหัสไปรษณีย์</label>
+              <input type="number" class="form-control" name="zipcode" id="zipcode" min="10000" max="99999" ng-model="zipcode" ng-minlength="5" ng-maxlength="5" ng-required="true">
+              <p ng-show="userForm.zipcode.$error.required" class="help-block">กรุณากรอก รหัสไปรษณีย์</p>
+              <p ng-show="userForm.zipcode.$error.minlength" class="help-block">รหัสไปรษณีย์ ต้องยาว 5 ตัวอักษร</p>
+              <p ng-show="userForm.zipcode.$error.maxlength" class="help-block">รหัสไปรษณีย์ ยาวเกิน 5 ตัวอักษร</p>
+            </div>
           </div>
         </div>
         </form>
-        <hr>
-        <button ng-click='goUpdate()'>click here</button>
-        <hr>
+
+
 
     </div>
   </div>
@@ -54,19 +101,75 @@
 <script>
 angular.module('registerApp', [])
   .controller('regCtrl', function ($scope, $timeout, $http) {
-  $scope.txt = 'abc';
-/*
+  $scope.GEO_ID = '';
+  $scope.PROVINCE_ID = '';
+  $scope.AMPHURE_ID = '';
+  $scope.DISTRICT_ID = '';
   $scope.geographyUpdate = function(value) {
-    console.log(value);
-    $http({
-      method: 'GET',
-      url: 'api/get.php?var1=1'
-    }).then(function successCallback(response) {
-      console.log(response)
-      $scope.provinces = response.data
-      });
+    if ($scope.GEO_ID != ''){
+      $http({
+        method: 'GET',
+        url: 'api/get.php?var1=' + $scope.GEO_ID
+      }).then(function successCallback(response) {
+        $scope.PROVINCE_ID = '';
+        $scope.AMPHURE_ID = '';
+        $scope.DISTRICT_ID = '';
+
+        $scope.provinces = [];
+        $scope.amphures = [];
+        $scope.districts = [];
+
+        $scope.provinces = response.data;
+        });
+    }else{
+      $scope.PROVINCE_ID = '';
+      $scope.AMPHURE_ID = '';
+      $scope.DISTRICT_ID = '';
+
+      $scope.provinces = [];
+      $scope.amphures = [];
+      $scope.districts = [];
+    }
   };
-*/
+
+  $scope.provinceUpdate = function() {
+    if ($scope.PROVINCE_ID != ''){
+      $http({
+        method: 'GET',
+        url: 'api/get.php?var2=' + $scope.PROVINCE_ID
+      }).then(function successCallback(response) {
+        $scope.AMPHURE_ID = '';
+        $scope.DISTRICT_ID = '';
+        $scope.amphures = [];
+        $scope.districts = [];
+        $scope.amphures = response.data;
+        });
+    }else{
+      $scope.AMPHURE_ID = '';
+      $scope.DISTRICT_ID = '';
+      $scope.amphures = [];
+      $scope.districts = [];
+    }
+  };
+
+  $scope.amphureUpdate = function() {
+    if ($scope.AMPHURE_ID != ''){
+      $http({
+        method: 'GET',
+        url: 'api/get.php?var3=' + $scope.AMPHURE_ID
+      }).then(function successCallback(response) {
+        $scope.DISTRICT_ID = '';
+        $scope.districts = [];
+        $scope.districts = response.data;
+        });
+    }else{
+      $scope.DISTRICT_ID = '';
+      $scope.districts = [];
+    }
+  };
+
+
+
 
 });
 </script>
