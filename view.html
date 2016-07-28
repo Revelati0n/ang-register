@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+	  <link href='https://fonts.googleapis.com/css?family=Kanit:500&subset=thai' rel='stylesheet' type='text/css'>
+	  <link href="vendor/animate/css/animate.css" rel="stylesheet">
+    <link href="vendor/bootflat/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootflat/css/bootflat.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/sweetalert/css/sweetalert.css" rel="stylesheet">
+  </head>
+<body>
+  <div class="container" ng-app="registerApp" ng-controller="regCtrl">
+    <div class="row">
+      <div class="text-center"><h2 class="animated fadeInLeft">บันทึกข้อมูลสำเร็จ</h2></div>
+      <div class="col-md-8 col-md-offset-2">
+      <table class="table animated fadeInRight">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>ข้อมูล</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ชื่อ - นามสกุล</td>
+                    <td>{{data.name}}</td>
+                  </tr>
+                  <tr>
+                    <td>จังหวัด</td>
+                    <td>{{data.provine}}</td>
+                  </tr>
+                  <tr>
+                    <td>อำเภอ / เขต</td>
+                    <td>{{data.amphure}}</td>
+                  </tr>
+                  <tr>
+                    <td>ตำบล / แขวง</td>
+                    <td>{{data.district}}</td>
+                  </tr>
+                  <tr>
+                    <td>รหัสไปรษณีย์</td>
+                    <td>{{data.zipcode}}</td>
+                  </tr>
+                  <tr>
+                    <td>ตำเหน่ง</td>
+                    <td>{{data.position}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <hr>
+              <div class="text-center animated fadeInDown">
+              <a href="index.html" class="btn btn-sm btn-success" > <i class="fa fa-chevron-left" aria-hidden="true"></i> ย้อนกลับ</a>
+            </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="vendor/bootflat/js/bootstrap.min.js"></script>
+    <script src="vendor/sweetalert/js/sweetalert.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+    <script src="vendor/angular-recaptcha/js/angular-recaptcha.min.js"></script>
+  </body>
+</html>
+<script>
+angular.module('registerApp', ['vcRecaptcha'])
+  .controller('regCtrl', function ($scope, $timeout, $http, vcRecaptchaService) {
+    $http.post('api/getuid.php').success(function(response){
+      if (response.code == 0){
+        $scope.data = response;
+      }else{
+        window.location="index.html";
+      }
+    })
+    .error(function(error){
+      window.location="index.html";
+    })
+}
+
+        )
+</script>

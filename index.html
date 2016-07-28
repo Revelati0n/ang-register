@@ -5,57 +5,210 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register</title>
-	<link href='https://fonts.googleapis.com/css?family=Kanit:500&subset=thai' rel='stylesheet' type='text/css'>
-	<link href="vendor/animate/css/animate.css" rel="stylesheet">
+	  <link href='https://fonts.googleapis.com/css?family=Kanit:500&subset=thai' rel='stylesheet' type='text/css'>
+	  <link href="vendor/animate/css/animate.css" rel="stylesheet">
     <link href="vendor/bootflat/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/bootflat/css/bootflat.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="vendor/sweetalert/css/sweetalert.css" rel="stylesheet">
-    
   </head>
-  <body>
-    <h1>Hello, world!</h1>
-	<div ng-app='testApp' ng-controller='myCtrl'>
-  <h3 ng-class="txt=='aa'?'cl-blue':'cl-red'">class: {{txt}}</h3>  
-  <h3 ng-hide="txt=='ab'">hidden: {{txt}}</h3>
-  <input type="text" ng-model='txt'></input><input type="text" ng-model='txt'></input>
-<button ng-click='goUpdate()'>click here</button>
-<p>{{ txt=='abc' ? 'true' : 'false' }}</p>
-<img ng-src='{{ima}}'>
-<hr/>
-<input ng-model='search' />
-<table border=1 width='100%' class='table table-hover'>
-  <tr>
-  <th>omg</th>
-    <th>name</th>
-    <th>age</th>
-  </tr>
-  <tr ng-repeat='user in users | filter: search'>
-    <td><img ng-src='{{user.img}}'></td>
-    <td>{{user.name}}</td>
-    <td>{{user.age}}</td>
-  </tr>
-  <tr>
-  </tr>
-</table>
-<!--------------------------------->
-</div>
+<body>
+  <div class="container" ng-app="registerApp" ng-controller="regCtrl">
+    <div class="row">
+      <div class="text-center"><h2 class="animated tada">หาจุดติดตั้ง</h2></div>
+      <form name="userForm" class="animated fadeIn" ng-submit="submitForm()">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-1">
+              <div class="form-group has-feedback" required>
+                <label class="control-label" for="realname">ชื่อ - นามสกุล</label>
+                <input type="text" class="form-control" id="realname" name="realname" ng-model="realname" placeholder="ชื่อ - นามสกุล ของฉัน ..." ng-minlength="5" ng-required="true" required>
+            </div>
+          </div>
+          <div class="col-md-4 col-md-offset-2">
+            <div class="form-group has-feedback" required>
+              <label class="control-label" for="geographys">ภาค</label>
+              <select name="geographys" id="geographys" ng-model="GEO_ID" ng-change="geographyUpdate()" class="form-control">
+                 <option value="" selected="selected">-- เลือกภาค --</option>
+                 <option value="1">ภาคเหนือ</option>
+                 <option value="2">ภาคกลาง</option>
+                 <option value="3">ภาคตะวันออกเฉียงเหนือ</option>
+                 <option value="4">ภาคตะวันตก</option>
+                 <option value="5">ภาคตะวันออก</option>
+                 <option value="6">ภาคใต้</option>
+             </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-1">
+            <div class="form-group has-feedback" required>
+              <label class="control-label" for="provinces">จังหวัด</label>
+              <select name="provinces" id="provinces" ng-model="PROVINCE_ID" ng-change="provinceUpdate()" class="form-control">
+                 <option value="" selected="selected">-- เลือกจังหวัด --</option>
+                 <option ng-repeat='province in provinces' value="{{province[0]}}">{{province[1]}}</option>
+             </select>
+           </div>
+          </div>
+          <div class="col-md-4 col-md-offset-2">
+            <div class="form-group has-feedback" required>
+              <label class="control-label" for="amphures">อำเภอ</label>
+              <select name="amphures" id="amphures" ng-model="AMPHURE_ID" ng-change="amphureUpdate()" class="form-control">
+                 <option value="">-- เลือกอำเภอ / เขต --</option>
+                 <option ng-repeat='amphure in amphures' value="{{amphure[0]}}">{{amphure[1]}}</option>
+             </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-1">
+            <div class="form-group has-feedback">
+              <label class="control-label" for="districts">ตำบล</label>
+             <input type="text" class="form-control" name="districts" id="districts" ng-model="DISTRICT" placeholder="ตำบล / แขวง ของฉัน ...">
+           </div>
+          </div>
+          <div class="col-md-4 col-md-offset-2">
+            <div class="form-group has-feedback" required>
+              <label class="control-label" for="name">รหัสไปรษณีย์</label>
+              <input type="number" class="form-control" name="zipcode" id="zipcode" min="10000" max="99999" placeholder="10240" ng-model="zipcode" ng-minlength="5" ng-maxlength="5" ng-required="true" required>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="form-group has-feedback" required>
+              <label class="control-label" for="position">จุดติดตั้ง</label>
+              <textarea class="form-control"  id="position" name="position" rows="2" ng-model="position" placeholder="บนหลังคาบ้านของฉัน ..." required></textarea>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <center>
+          <div
+                  vc-recaptcha
+                  theme="'light'"
+                  key="publicKey"
+              ></div>
+        </center>
+        <hr>
+        <button type="submit" class="btn btn-block btn-lg btn-success">บันทึก</button>
 
-	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>    
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>    
+        </form>
+
+
+
+    </div>
+  </div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="vendor/bootflat/js/bootstrap.min.js"></script>
     <script src="vendor/sweetalert/js/sweetalert.min.js"></script>
-    
+    <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+    <script src="vendor/angular-recaptcha/js/angular-recaptcha.min.js"></script>
   </body>
 </html>
 <script>
-angular.module('testApp', [])
-  .controller('myCtrl', function ($scope, $timeout, $http) {
-  $scope.txt = 'abc';
-  
-  $scope.goUpdate = function() {
-    $scope.txt = 'aaaaaa';
-  };  
+angular.module('registerApp', ['vcRecaptcha'])
+  .controller('regCtrl', function ($scope, $timeout, $http, vcRecaptchaService) {
+  $scope.publicKey ='6LdVHSYTAAAAANHHmA2YVGHkCJBp7mY7gGr_gjza';
+  $scope.GEO_ID = '';
+  $scope.PROVINCE_ID = '';
+  $scope.AMPHURE_ID = '';
+  $scope.DISTRICT_ID = '';
+  $scope.geographyUpdate = function(value) {
+    if ($scope.GEO_ID != ''){
+      $http({
+        method: 'GET',
+        url: 'api/get.php?var1=' + $scope.GEO_ID
+      }).then(function successCallback(response) {
+        $scope.PROVINCE_ID = '';
+        $scope.AMPHURE_ID = '';
+        $scope.DISTRICT_ID = '';
+
+        $scope.provinces = [];
+        $scope.amphures = [];
+        $scope.districts = [];
+
+        $scope.provinces = response.data;
+        });
+    }else{
+      $scope.PROVINCE_ID = '';
+      $scope.AMPHURE_ID = '';
+      $scope.DISTRICT_ID = '';
+
+      $scope.provinces = [];
+      $scope.amphures = [];
+      $scope.districts = [];
+    }
+  };
+
+  $scope.provinceUpdate = function() {
+    if ($scope.PROVINCE_ID != ''){
+      $http({
+        method: 'GET',
+        url: 'api/get.php?var2=' + $scope.PROVINCE_ID
+      }).then(function successCallback(response) {
+        $scope.AMPHURE_ID = '';
+        $scope.DISTRICT_ID = '';
+        $scope.amphures = [];
+        $scope.districts = [];
+        $scope.amphures = response.data;
+        });
+    }else{
+      $scope.AMPHURE_ID = '';
+      $scope.DISTRICT_ID = '';
+      $scope.amphures = [];
+      $scope.districts = [];
+    }
+  };
+
+ $scope.submitForm = function(){
+   if(vcRecaptchaService.getResponse() === ""){
+				swal({title: "เกิดข้อผิดพลาด !", text: "กรุณาตอบคำถามป้องกันบอท !",  type: "error", confirmButtonText: "ตกลง"});
+			}else {
+        swal({
+          title: "บันทึกรายการ ?",
+          type: "warning",
+          cancelButtonText: "ยกเลิก",
+          confirmButtonText: "บันทึก",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+        }, function(){
+           setTimeout(function(){
+               var post_data = {
+       					'realname': $scope.realname,
+                'PROVINCE_ID': $scope.PROVINCE_ID,
+                'AMPHURE_ID': $scope.AMPHURE_ID,
+                'DISTRICT': $scope.DISTRICT,
+                'zipcode': $scope.zipcode,
+                'position': $scope.position,
+       					'response':vcRecaptchaService.getResponse()
+       				}
+              console.log(post_data);
+       				$http.post('api/addRows.php',post_data).success(function(response){
+                console.log(response);
+       					if(response.error === 0){
+                  swal({title: "บันทึกข้อมูลสำเร็จ !", type: "success", confirmButtonText: "ตกลง"},function(){  window.location="view.html";});
+
+       					}else{
+       						swal({title: "เกิดข้อผิดพลาด !", text: "คำถามป้องกันบอทผิดพลาด !",timer: 5000,  type: "error", confirmButtonText: "ตกลง"});
+                  vcRecaptchaService.reload();
+       					}
+       				})
+       				.error(function(error){
+                swal({title: "เกิดข้อผิดพลาด !", text: "การบันทึกล้มเหลว กรุณาลองใหม่อีกครั้ง !",  type: "error", confirmButtonText: "ตกลง"});
+       				})
+           },
+           1500);
+        })
+			}
+ }
+
+
+
 });
 </script>
