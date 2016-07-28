@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2016 at 05:27 PM
+-- Generation Time: Jul 28, 2016 at 02:47 AM
 -- Server version: 10.1.13-MariaDB
--- PHP Version: 7.0.6
+-- PHP Version: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -10123,9 +10123,8 @@ CREATE TABLE `user_data` (
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `PROVINCE_ID` int(11) NOT NULL,
   `AMPHUR_ID` int(11) NOT NULL,
-  `DISTRICT_ID` int(11) NOT NULL,
+  `DISTRICT` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `zipcode` int(11) NOT NULL,
-  `village` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `position` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

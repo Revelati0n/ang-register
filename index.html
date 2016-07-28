@@ -21,7 +21,7 @@
           <div class="col-md-4 col-md-offset-1">
               <div class="form-group has-feedback" required>
                 <label class="control-label" for="realname">ชื่อ - นามสกุล</label>
-                <input type="text" class="form-control" name="realname" id="realname" ng-model="realname" placeholder="ชื่อ - นามสกุล ของฉัน ..." ng-minlength="5" ng-required="true" required>
+                <input type="text" class="form-control" id="realname" name="realname" ng-model="realname" placeholder="ชื่อ - นามสกุล ของฉัน ..." ng-minlength="5" ng-required="true" required>
             </div>
           </div>
           <div class="col-md-4 col-md-offset-2">
@@ -180,9 +180,11 @@ angular.module('registerApp', ['vcRecaptcha'])
         }, function(){
            setTimeout(function(){
                var post_data = {
-                 'xx':'xxx',
        					'realname': $scope.realname,
                 'PROVINCE_ID': $scope.PROVINCE_ID,
+                'AMPHURE_ID': $scope.AMPHURE_ID,
+                'DISTRICT': $scope.DISTRICT,
+                'zipcode': $scope.zipcode,
                 'position': $scope.position,
        					'response':vcRecaptchaService.getResponse()
        				}
