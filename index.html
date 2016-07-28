@@ -192,7 +192,7 @@ angular.module('registerApp', ['vcRecaptcha'])
        				$http.post('api/addRows.php',post_data).success(function(response){
                 console.log(response);
        					if(response.error === 0){
-                  swal({title: "บันทึกข้อมูลสำเร็จ !", type: "success", confirmButtonText: "ตกลง"},function(){window.location.reload();});
+                  swal({title: "บันทึกข้อมูลสำเร็จ !", type: "success", confirmButtonText: "ตกลง"},function(){  window.location="view.html";});
 
        					}else{
        						swal({title: "เกิดข้อผิดพลาด !", text: "คำถามป้องกันบอทผิดพลาด !",timer: 5000,  type: "error", confirmButtonText: "ตกลง"});

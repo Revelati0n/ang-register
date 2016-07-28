@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+	  <link href='https://fonts.googleapis.com/css?family=Kanit:500&subset=thai' rel='stylesheet' type='text/css'>
+	  <link href="vendor/animate/css/animate.css" rel="stylesheet">
+    <link href="vendor/bootflat/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootflat/css/bootflat.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/sweetalert/css/sweetalert.css" rel="stylesheet">
+  </head>
+<body>
+  <div class="container-fluid" ng-app="registerApp" ng-controller="regCtrl">
+    <div class="row">
+      <div class="text-center"><h2 class="animated fadeIn">รายละเอียด</h2></div>
+
+        <table class="table animated fadeIn">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>ชื่อ - นามสกุล</th>
+                      <th>จังหวัด</th>
+                      <th>อำเภอ</th>
+                      <th>ตำบล</th>
+                      <th>รหัสไปรษณีย์</th>
+                      <th>ตำเหน่ง</th>
+                    </tr>
+                  </thead>
+        <tbody>
+          <tr>
+
+            <td colspan="7">
+              <div class="form-search search-only">
+                  <i class="search-icon glyphicon glyphicon-search"></i>
+                  <input type="text" class="form-control search-query" ng-model="find"  placeholder="ค้นหา ชื่อ - นามสกุล , จังหวัด , อำเภอ , ตำบล , รหัสไปรษณีย์ , ตำเหน่ง ...">
+                </div></td>
+
+          </tr>
+          <tr ng-repeat="n in datas | filter : find">
+            <td>{{ n.ID }}</td>
+            <td>{{ n.name }}</td>
+            <td>{{ n.provine }}</td>
+            <td>{{ n.amphure }}</td>
+            <td>{{ n.district }}</td>
+            <td>{{ n.zipcode }}</td>
+            <td>{{ n.position }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+              <hr>
+              <div class="text-center animated fadeIn">
+              <a href="index.html" class="btn btn-sm btn-success" > <i class="fa fa-chevron-left" aria-hidden="true"></i> ย้อนกลับ</a>
+            </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="vendor/bootflat/js/bootstrap.min.js"></script>
+    <script src="vendor/sweetalert/js/sweetalert.min.js"></script>
+  </body>
+</html>
+<script>
+angular.module('registerApp', [])
+  .controller('regCtrl', function ($scope, $timeout, $http) {
+       $http.post('api/getAll.php').success(function(response){
+         $scope.datas = response;
+    })
+
+}
+
+        )
+</script>

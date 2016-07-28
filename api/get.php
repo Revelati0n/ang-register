@@ -28,13 +28,7 @@ if (isset($_GET['var1']) || isset($_GET['var2'])){
       exit();
     }
   }
-
 }else{
   exit();
 }
-
-
-
-
-
 ?>
