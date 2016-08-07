@@ -11,93 +11,123 @@
     <link href="vendor/bootflat/css/bootflat.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="vendor/sweetalert/css/sweetalert.css" rel="stylesheet">
+    <style>
+    .google-map {
+    height: 800px;
+  }
+
+      </style>
   </head>
 <body>
-  <div class="container" ng-app="registerApp" ng-controller="regCtrl">
-    <div class="row">
-      <div class="text-center"><h2 class="animated tada">หาจุดติดตั้ง</h2></div>
-      <form name="userForm" class="animated fadeIn" ng-submit="submitForm()">
-        <div class="row">
-          <div class="col-md-4 col-md-offset-1">
-              <div class="form-group has-feedback" required>
-                <label class="control-label" for="realname">ชื่อ - นามสกุล</label>
-                <input type="text" class="form-control" id="realname" name="realname" ng-model="realname" placeholder="ชื่อ - นามสกุล ของฉัน ..." ng-minlength="5" ng-required="true" required>
-            </div>
-          </div>
-          <div class="col-md-4 col-md-offset-2">
-            <div class="form-group has-feedback" required>
-              <label class="control-label" for="geographys">ภาค</label>
-              <select name="geographys" id="geographys" ng-model="GEO_ID" ng-change="geographyUpdate()" class="form-control">
-                 <option value="" selected="selected">-- เลือกภาค --</option>
-                 <option value="1">ภาคเหนือ</option>
-                 <option value="2">ภาคกลาง</option>
-                 <option value="3">ภาคตะวันออกเฉียงเหนือ</option>
-                 <option value="4">ภาคตะวันตก</option>
-                 <option value="5">ภาคตะวันออก</option>
-                 <option value="6">ภาคใต้</option>
-             </select>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-md-offset-1">
-            <div class="form-group has-feedback" required>
-              <label class="control-label" for="provinces">จังหวัด</label>
-              <select name="provinces" id="provinces" ng-model="PROVINCE_ID" ng-change="provinceUpdate()" class="form-control">
-                 <option value="" selected="selected">-- เลือกจังหวัด --</option>
-                 <option ng-repeat='province in provinces' value="{{province[0]}}">{{province[1]}}</option>
-             </select>
-           </div>
-          </div>
-          <div class="col-md-4 col-md-offset-2">
-            <div class="form-group has-feedback" required>
-              <label class="control-label" for="amphures">อำเภอ</label>
-              <select name="amphures" id="amphures" ng-model="AMPHURE_ID" ng-change="amphureUpdate()" class="form-control">
-                 <option value="">-- เลือกอำเภอ / เขต --</option>
-                 <option ng-repeat='amphure in amphures' value="{{amphure[0]}}">{{amphure[1]}}</option>
-             </select>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-md-offset-1">
-            <div class="form-group has-feedback">
-              <label class="control-label" for="districts">ตำบล</label>
-             <input type="text" class="form-control" name="districts" id="districts" ng-model="DISTRICT" placeholder="ตำบล / แขวง ของฉัน ...">
-           </div>
-          </div>
-          <div class="col-md-4 col-md-offset-2">
-            <div class="form-group has-feedback" required>
-              <label class="control-label" for="name">รหัสไปรษณีย์</label>
-              <input type="number" class="form-control" name="zipcode" id="zipcode" min="10000" max="99999" placeholder="10240" ng-model="zipcode" ng-minlength="5" ng-maxlength="5" ng-required="true" required>
-          </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2">
-            <div class="form-group has-feedback" required>
-              <label class="control-label" for="position">จุดติดตั้ง</label>
-              <textarea class="form-control"  id="position" name="position" rows="2" ng-model="position" placeholder="บนหลังคาบ้านของฉัน ..." required></textarea>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <center>
-          <div
-                  vc-recaptcha
-                  theme="'light'"
-                  key="publicKey"
-              ></div>
-        </center>
-        <hr>
-        <button type="submit" class="btn btn-block btn-lg btn-success">บันทึก</button>
+  <div class="container-fluid" ng-app="registerApp" ng-controller="regCtrl">
+    <form name="userForm" class="animated fadeIn" ng-submit="submitForm()">
+      <div class="row" ng-show="state == 1">
 
+          <div class="text-center"><h2 class="animated tada">ตำแหน่งที่ตั้ง</h2></div>
+          <div class="col-md-10" style="height:100%">
+          <map ng-transclude class='google-map' center="map.center" options="map.options">
+
+            <marker position="marker.position" decimals="marker.decimals" options="marker.options"></marker>
+
+          </map>
+        </div>
+        <div class="col-md-2">
+            <div class="well">
+
+              <div class="text-center">
+              <h3>พื้นที่การติดตั้ง</h3>
+            </div>
+              <div class="form-group has-feedback" required>
+                <label class="control-label" for="Latitude">ละติจูด ( Latitude )</label>
+                <input type="text" class="form-control" id="Latitude" name="Latitude" ng-model="marker.position[0]" placeholder="ละติจูด ( Latitude )" ng-minlength="1" ng-required="true" required>
+              </div>
+              <div class="form-group has-feedback" required>
+                <label class="control-label" for="Longitude">ลองจิจูด ( Longitude )</label>
+                <input type="text" class="form-control" id="Longitude" name="Longitude" ng-model="marker.position[1]" placeholder="ลองจิจูด ( Longitude )" ng-minlength="1" ng-required="true" required>
+              </div>
+              <button type="button" class="btn btn-sm btn-block btn-warning" ng-click="marker.position = [13.761728449950002, 100.6527900695800]"><i class="fa fa-repeat" aria-hidden="true"></i> คืนค่า</button>
+            <button type="button" ng-click="state = 2" ng-disabled="userForm.Latitude.$invalid || userForm.Longitude.$invalid" class="btn btn-block btn-success btn-lg">ถัดไป <i class="fa fa-step-forward" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+
+    <div class="row" ng-show="state == 2">
+      <div class="text-center"><h2 class="animated tada">หาจุดติดตั้ง</h2></div>
+      <div class="col-md-4">
+
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="firstname">ชื่อ</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" ng-model="firstname" placeholder="ชื่อ" ng-minlength="2" ng-required="true" required>
+          </div>
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="realname">นามสกุล</label>
+            <input type="text" class="form-control" id="surname" name="surname" ng-model="surname" placeholder="นามสกุล" ng-minlength="2" ng-required="true" required>
+          </div>
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="geographys">ภาค</label>
+            <select name="geographys" id="geographys" ng-model="GEO_ID" ng-change="geographyUpdate()" class="form-control">
+              <option value="" selected="selected">-- เลือกภาค --</option>
+              <option value="1">ภาคเหนือ</option>
+              <option value="2">ภาคกลาง</option>
+              <option value="3">ภาคตะวันออกเฉียงเหนือ</option>
+              <option value="4">ภาคตะวันตก</option>
+              <option value="5">ภาคตะวันออก</option>
+              <option value="6">ภาคใต้</option>
+            </select>
+          </div>
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="provinces">จังหวัด</label>
+            <select name="provinces" id="provinces" ng-model="PROVINCE_ID" ng-change="provinceUpdate()" class="form-control">
+              <option value="" selected="selected">-- เลือกจังหวัด --</option>
+              <option ng-repeat='province in provinces' value="{{province[0]}}">{{province[1]}}</option>
+            </select>
+          </div>
+
+
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="amphures">อำเภอ</label>
+            <select name="amphures" id="amphures" ng-model="AMPHURE_ID" ng-change="amphureUpdate()" class="form-control">
+              <option value="">-- เลือกอำเภอ / เขต --</option>
+              <option ng-repeat='amphure in amphures' value="{{amphure[0]}}">{{amphure[1]}}</option>
+            </select>
+          </div>
+
+
+          <div class="form-group has-feedback">
+            <label class="control-label" for="districts">ตำบล</label>
+            <input type="text" class="form-control" name="districts" id="districts" ng-model="DISTRICT" placeholder="ตำบล / แขวง ของฉัน ...">
+          </div>
+
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="name">รหัสไปรษณีย์</label>
+            <input type="number" class="form-control" name="zipcode" id="zipcode" min="10000" max="99999" placeholder="10240" ng-model="zipcode" ng-minlength="5" ng-maxlength="5" ng-required="true" required>
+          </div>
+
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="position">จุดติดตั้ง</label>
+            <textarea class="form-control"  id="position" name="position" rows="2" ng-model="position" placeholder="บนหลังคาบ้านของฉัน ..." required></textarea>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-warning btn-lg" ng-click="state = 1"><i class="fa fa-step-backward" aria-hidden="true"></i> กลับ</button> <button type="button" class="btn btn-success btn-lg" ng-click="state = 3">ถัดไป <i class="fa fa-step-forward" aria-hidden="true"></i></button>
+          </div>
+        </div>
+    </div>
+
+<div class="row" ng-show="state == 3">
+  <button type="submit" class="btn btn-block btn-lg btn-success">บันทึก</button>
+  <center>
+    <div
+    vc-recaptcha
+    theme="'light'"
+    key="publicKey"
+    ></div>
+  </center>
+
+</div>
         </form>
 
+      </div>
 
-
-    </div>
-  </div>
 
 
 
@@ -108,107 +138,142 @@
     <script src="vendor/sweetalert/js/sweetalert.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
     <script src="vendor/angular-recaptcha/js/angular-recaptcha.min.js"></script>
-  </body>
-</html>
-<script>
-angular.module('registerApp', ['vcRecaptcha'])
-  .controller('regCtrl', function ($scope, $timeout, $http, vcRecaptchaService) {
-  $scope.publicKey ='6LdVHSYTAAAAANHHmA2YVGHkCJBp7mY7gGr_gjza';
-  $scope.GEO_ID = '';
-  $scope.PROVINCE_ID = '';
-  $scope.AMPHURE_ID = '';
-  $scope.DISTRICT_ID = '';
-  $scope.geographyUpdate = function(value) {
-    if ($scope.GEO_ID != ''){
-      $http({
-        method: 'GET',
-        url: 'api/get.php?var1=' + $scope.GEO_ID
-      }).then(function successCallback(response) {
-        $scope.PROVINCE_ID = '';
-        $scope.AMPHURE_ID = '';
-        $scope.DISTRICT_ID = '';
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDU1yjyz9CFKC1k2j8dLa2yOgo8gQsWuYQ&language=th"></script>
+    <script src="vendor/angular-google-maps/ng-maps.js"></script>
 
-        $scope.provinces = [];
-        $scope.amphures = [];
-        $scope.districts = [];
 
-        $scope.provinces = response.data;
-        });
-    }else{
+    <script>
+    angular.module('registerApp', ['vcRecaptcha', 'ngMaps'])
+    .controller('regCtrl', function ($scope, $timeout, $http, vcRecaptchaService) {
+
+            var myLatlng = {lat: 13.761728449950002, lng: 100.6527900695800};
+      $scope.publicKey ='6LdVHSYTAAAAANHHmA2YVGHkCJBp7mY7gGr_gjza';
+
+            $scope.state = 1;
+
+            $scope.map = {
+            center: [13.761728449950002, 100.6527900695800],
+            options: function() {
+              return {
+                streetViewControl: true,
+                scrollwheel: true
+              }
+            }
+          };
+
+      $scope.marker = {
+        position: [13.761728449950002, 100.6527900695800],
+        decimals: 4,
+        options: function() {
+          return { draggable: true };
+        }
+      }
+      $scope.lat = '';
+      $scope.lng = '';
+      $scope.GEO_ID = '';
       $scope.PROVINCE_ID = '';
       $scope.AMPHURE_ID = '';
       $scope.DISTRICT_ID = '';
+      $scope.latsUpdate = function(value) {
+        $scope.lat = value;
+      };
+      $scope.geographyUpdate = function(value) {
+        if ($scope.GEO_ID != ''){
+          $http({
+            method: 'GET',
+            url: 'api/get.php?var1=' + $scope.GEO_ID
+          }).then(function successCallback(response) {
+            $scope.PROVINCE_ID = '';
+            $scope.AMPHURE_ID = '';
+            $scope.DISTRICT_ID = '';
 
-      $scope.provinces = [];
-      $scope.amphures = [];
-      $scope.districts = [];
-    }
-  };
+            $scope.provinces = [];
+            $scope.amphures = [];
+            $scope.districts = [];
 
-  $scope.provinceUpdate = function() {
-    if ($scope.PROVINCE_ID != ''){
-      $http({
-        method: 'GET',
-        url: 'api/get.php?var2=' + $scope.PROVINCE_ID
-      }).then(function successCallback(response) {
-        $scope.AMPHURE_ID = '';
-        $scope.DISTRICT_ID = '';
-        $scope.amphures = [];
-        $scope.districts = [];
-        $scope.amphures = response.data;
-        });
-    }else{
-      $scope.AMPHURE_ID = '';
-      $scope.DISTRICT_ID = '';
-      $scope.amphures = [];
-      $scope.districts = [];
-    }
-  };
+            $scope.provinces = response.data;
+          });
+        }else{
+          $scope.PROVINCE_ID = '';
+          $scope.AMPHURE_ID = '';
+          $scope.DISTRICT_ID = '';
 
- $scope.submitForm = function(){
-   if(vcRecaptchaService.getResponse() === ""){
-				swal({title: "เกิดข้อผิดพลาด !", text: "กรุณาตอบคำถามป้องกันบอท !",  type: "error", confirmButtonText: "ตกลง"});
-			}else {
-        swal({
-          title: "บันทึกรายการ ?",
-          type: "warning",
-          cancelButtonText: "ยกเลิก",
-          confirmButtonText: "บันทึก",
-          showCancelButton: true,
-          closeOnConfirm: false,
-          showLoaderOnConfirm: true,
-        }, function(){
-           setTimeout(function(){
-               var post_data = {
-       					'realname': $scope.realname,
+          $scope.provinces = [];
+          $scope.amphures = [];
+          $scope.districts = [];
+        }
+      };
+
+      $scope.provinceUpdate = function() {
+        if ($scope.PROVINCE_ID != ''){
+          $http({
+            method: 'GET',
+            url: 'api/get.php?var2=' + $scope.PROVINCE_ID
+          }).then(function successCallback(response) {
+            $scope.AMPHURE_ID = '';
+            $scope.DISTRICT_ID = '';
+            $scope.amphures = [];
+            $scope.districts = [];
+            $scope.amphures = response.data;
+          });
+        }else{
+          $scope.AMPHURE_ID = '';
+          $scope.DISTRICT_ID = '';
+          $scope.amphures = [];
+          $scope.districts = [];
+        }
+      };
+
+      $scope.submitForm = function(){
+        if(vcRecaptchaService.getResponse() === ""){
+          swal({title: "เกิดข้อผิดพลาด !", text: "กรุณาตอบคำถามป้องกันบอท !",  type: "error", confirmButtonText: "ตกลง"});
+        }else {
+          swal({
+            title: "บันทึกรายการ ?",
+            type: "warning",
+            cancelButtonText: "ยกเลิก",
+            confirmButtonText: "บันทึก",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+          }, function(){
+            setTimeout(function(){
+              var post_data = {
+                'realname': $scope.realname,
                 'PROVINCE_ID': $scope.PROVINCE_ID,
                 'AMPHURE_ID': $scope.AMPHURE_ID,
                 'DISTRICT': $scope.DISTRICT,
                 'zipcode': $scope.zipcode,
                 'position': $scope.position,
-       					'response':vcRecaptchaService.getResponse()
-       				}
+                'response':vcRecaptchaService.getResponse()
+              }
               console.log(post_data);
-       				$http.post('api/addRows.php',post_data).success(function(response){
+              $http.post('api/addRows.php',post_data).success(function(response){
                 console.log(response);
-       					if(response.error === 0){
+                if(response.error === 0){
                   swal({title: "บันทึกข้อมูลสำเร็จ !", type: "success", confirmButtonText: "ตกลง"},function(){  window.location="view.html";});
 
-       					}else{
-       						swal({title: "เกิดข้อผิดพลาด !", text: "คำถามป้องกันบอทผิดพลาด !",timer: 5000,  type: "error", confirmButtonText: "ตกลง"});
+                }else{
+                  swal({title: "เกิดข้อผิดพลาด !", text: "คำถามป้องกันบอทผิดพลาด !",timer: 5000,  type: "error", confirmButtonText: "ตกลง"});
                   vcRecaptchaService.reload();
-       					}
-       				})
-       				.error(function(error){
+                }
+              })
+              .error(function(error){
                 swal({title: "เกิดข้อผิดพลาด !", text: "การบันทึกล้มเหลว กรุณาลองใหม่อีกครั้ง !",  type: "error", confirmButtonText: "ตกลง"});
-       				})
-           },
-           1500);
-        })
-			}
- }
+              })
+            },
+            1500);
+          })
+        }
+      }
 
 
 
-});
-</script>
+    });
+
+
+    </script>
+
+  </div>
+  </body>
+</html>
