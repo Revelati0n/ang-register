@@ -3,7 +3,7 @@
 $db_config=array(
     "host"=>"localhost",
     "user"=>"root",
-    "pass"=>"",
+    "pass"=>"123456789",
     "dbname"=>"userdb",
     "charset"=>"utf8"
 );

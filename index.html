@@ -13,10 +13,9 @@
     <link href="vendor/sweetalert/css/sweetalert.css" rel="stylesheet">
     <style>
     .google-map {
-    height: 800px;
-  }
-
-      </style>
+      height: 500px;
+    }
+    </style>
   </head>
 <body>
   <div class="container-fluid" ng-app="registerApp" ng-controller="regCtrl">
@@ -24,14 +23,14 @@
       <div class="row" ng-show="state == 1">
 
           <div class="text-center"><h2 class="animated tada">ตำแหน่งที่ตั้ง</h2></div>
-          <div class="col-md-10" style="height:100%">
+          <div class="col-md-9" style="height:100%">
           <map ng-transclude class='google-map' center="map.center" options="map.options">
 
             <marker position="marker.position" decimals="marker.decimals" options="marker.options"></marker>
 
           </map>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="well">
 
               <div class="text-center">
