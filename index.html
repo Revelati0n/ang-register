@@ -51,16 +51,39 @@
       </div>
 
     <div class="row" ng-show="state == 2">
-      <div class="text-center"><h2 class="animated tada">หาจุดติดตั้ง</h2></div>
+      <div class="text-center"><h2 class="animated tada">หาจุดติดตั้ง</h2></div><hr>
       <div class="col-md-4">
 
           <div class="form-group has-feedback" required>
-            <label class="control-label" for="firstname">ชื่อ</label>
+            <label class="control-label" for="firstname">ข้าพเจ้า ชื่อ</label>
             <input type="text" class="form-control" id="firstname" name="firstname" ng-model="firstname" placeholder="ชื่อ" ng-minlength="2" ng-required="true" required>
           </div>
           <div class="form-group has-feedback" required>
-            <label class="control-label" for="realname">นามสกุล</label>
+            <label class="control-label" for="surname">นามสกุล</label>
             <input type="text" class="form-control" id="surname" name="surname" ng-model="surname" placeholder="นามสกุล" ng-minlength="2" ng-required="true" required>
+          </div>
+
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="telname">โทร</label>
+            <input type="text" class="form-control" id="tel" name="tel" ng-model="tel" placeholder="โทร" ng-minlength="9" ng-maxlength="9" ng-required="true" required>
+          </div>
+
+          <div class="form-group has-feedback" required>
+              <label class="control-label" for="tel">เบอร์มือถือ</label>
+              <input type="text" class="form-control" id="tel" name="telphone" ng-model="telphone" placeholder="เบอร์มือถือ" ng-required="true" required>
+          </div>
+
+          <div class="form-group has-feedback" required>
+              <label class="control-label" for="rank">ตำเหน่ง</label>
+              <input type="text" class="form-control" id="rank" name="rank" ng-model="rank" placeholder="ตำเหน่ง" ng-required="true" required>
+          </div>
+
+
+        </div>
+        <div class="col-md-4">
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="position">มีความประสงค์ให้ติดตั้งบริการ ณ </label>
+            <input type="text" class="form-control" id="position" name="position" ng-model="position" placeholder="มีความประสงค์ให้ติดตั้งบริการ ณ ..." ng-minlength="2" ng-required="true" required>
           </div>
           <div class="form-group has-feedback" required>
             <label class="control-label" for="geographys">ภาค</label>
@@ -74,55 +97,71 @@
               <option value="6">ภาคใต้</option>
             </select>
           </div>
-          <div class="form-group has-feedback" required>
-            <label class="control-label" for="provinces">จังหวัด</label>
-            <select name="provinces" id="provinces" ng-model="PROVINCE_ID" ng-change="provinceUpdate()" class="form-control">
-              <option value="" selected="selected">-- เลือกจังหวัด --</option>
-              <option ng-repeat='province in provinces' value="{{province[0]}}">{{province[1]}}</option>
-            </select>
-          </div>
-
 
           <div class="form-group has-feedback" required>
-            <label class="control-label" for="amphures">อำเภอ</label>
-            <select name="amphures" id="amphures" ng-model="AMPHURE_ID" ng-change="amphureUpdate()" class="form-control">
-              <option value="">-- เลือกอำเภอ / เขต --</option>
-              <option ng-repeat='amphure in amphures' value="{{amphure[0]}}">{{amphure[1]}}</option>
-            </select>
+            <label class="control-label" for="address">บ้านเลขที่</label>
+            <input type="text" class="form-control" id="address" name="address" ng-model="address" placeholder="บ้านเลขที่" ng-minlength="1" ng-required="true" required>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="vilno">หมู่ที่</label>
+            <input type="text" class="form-control" id="vilno" name="vilno" ng-model="vilno" placeholder="หมู่ที่">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="road">ถนน</label>
+            <input type="text" class="form-control" id="road" name="road" ng-model="road" placeholder="ถนน">
           </div>
 
-
-          <div class="form-group has-feedback">
-            <label class="control-label" for="districts">ตำบล</label>
-            <input type="text" class="form-control" name="districts" id="districts" ng-model="DISTRICT" placeholder="ตำบล / แขวง ของฉัน ...">
-          </div>
-
-          <div class="form-group has-feedback" required>
-            <label class="control-label" for="name">รหัสไปรษณีย์</label>
-            <input type="number" class="form-control" name="zipcode" id="zipcode" min="10000" max="99999" placeholder="10240" ng-model="zipcode" ng-minlength="5" ng-maxlength="5" ng-required="true" required>
-          </div>
-
-          <div class="form-group has-feedback" required>
-            <label class="control-label" for="position">จุดติดตั้ง</label>
-            <textarea class="form-control"  id="position" name="position" rows="2" ng-model="position" placeholder="บนหลังคาบ้านของฉัน ..." required></textarea>
-          </div>
-          <div class="text-center">
-            <button type="button" class="btn btn-warning btn-lg" ng-click="state = 1"><i class="fa fa-step-backward" aria-hidden="true"></i> กลับ</button> <button type="button" class="btn btn-success btn-lg" ng-click="state = 3">ถัดไป <i class="fa fa-step-forward" aria-hidden="true"></i></button>
-          </div>
         </div>
-    </div>
 
-<div class="row" ng-show="state == 3">
-  <button type="submit" class="btn btn-block btn-lg btn-success">บันทึก</button>
+        <div class="col-md-4">
+
+                    <div class="form-group">
+                      <label class="control-label" for="soi">ซอย</label>
+                      <input type="text" class="form-control" id="soi" name="soi" ng-model="soi" placeholder="ซอย">
+                    </div>
+
+                    <div class="form-group has-feedback" required>
+                      <label class="control-label" for="provinces">จังหวัด</label>
+                      <select name="provinces" id="provinces" ng-model="PROVINCE_ID" ng-change="provinceUpdate()" class="form-control">
+                        <option value="" selected="selected">-- เลือกจังหวัด --</option>
+                        <option ng-repeat='province in provinces' value="{{province[0]}}">{{province[1]}}</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group has-feedback" required>
+                      <label class="control-label" for="amphures">อำเภอ</label>
+                      <select name="amphures" id="amphures"  ng-model="AMPHURE_ID" ng-change="amphureUpdate()" class="form-control">
+                        <option value="">-- เลือกอำเภอ / เขต --</option>
+                        <option ng-repeat='amphure in amphures' value="{{amphure[0]}}">{{amphure[1]}}</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                      <label class="control-label" for="districts">ตำบล</label>
+                      <input type="text" class="form-control" name="districts" id="districts" ng-model="DISTRICT" placeholder="ตำบล / แขวง ของฉัน ...">
+                    </div>
+
+                    <div class="form-group has-feedback" required>
+                      <label class="control-label" for="name">รหัสไปรษณีย์</label>
+                      <input type="number" class="form-control" name="zipcode" id="zipcode" min="10000" max="99999" placeholder="10240" ng-model="zipcode" ng-minlength="5" ng-maxlength="5" ng-required="true" required>
+                    </div>
+
+        </div>
+<div class="col-md-6 col-md-offset-3">
   <center>
     <div
     vc-recaptcha
     theme="'light'"
     key="publicKey"
     ></div>
-  </center>
-
+  <button type="button" class="btn btn-warning btn-lg" ng-click="state = 1"><i class="fa fa-step-backward" aria-hidden="true"></i> กลับ</button>
+  <button type="submit" ng-disabled="userForm.firstname.$invalid || userForm.surname.$invalid || userForm.rank.$invalid || userForm.telphone.$invalid || userForm.position.$invalid || userForm.address.$invalid || userForm.PROVINCE_ID.$invalid || userForm.AMPHURE_ID.$invalid || userForm.DISTRICTD.$invalid || userForm.zipcode.$invalid" class="btn btn-lg btn-success">บันทึก</button>
+</center>
 </div>
+
+    </div>
+
+
         </form>
 
       </div>
@@ -166,7 +205,7 @@
         options: function() {
           return { draggable: true };
         }
-      }
+      };
       $scope.lat = '';
       $scope.lng = '';
       $scope.GEO_ID = '';
@@ -244,7 +283,8 @@
                 'DISTRICT': $scope.DISTRICT,
                 'zipcode': $scope.zipcode,
                 'position': $scope.position,
-                'response':vcRecaptchaService.getResponse()
+                'response':vcRecaptchaService.getResponse(),
+
               }
               console.log(post_data);
               $http.post('api/addRows.php',post_data).success(function(response){
