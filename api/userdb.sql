@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2016 at 02:47 AM
+-- Generation Time: Aug 10, 2016 at 05:07 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -10120,13 +10120,42 @@ INSERT INTO `provinces` (`PROVINCE_ID`, `PROVINCE_CODE`, `PROVINCE_NAME`, `PROVI
 
 CREATE TABLE `user_data` (
   `ID` int(11) NOT NULL,
-  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `firstname` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `surname` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `tel` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `telphone` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `rank` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `position` text COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `vilno` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `soi` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `road` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `PROVINCE_ID` int(11) NOT NULL,
   `AMPHUR_ID` int(11) NOT NULL,
   `DISTRICT` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `zipcode` int(11) NOT NULL,
-  `position` text COLLATE utf8_unicode_ci NOT NULL
+  `lat` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `lng` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `for_fristname` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `for_surname` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `for_tel` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `for_telphone` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `for_rank` varchar(128) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `user_data`
+--
+
+INSERT INTO `user_data` (`ID`, `firstname`, `surname`, `tel`, `telphone`, `rank`, `position`, `address`, `vilno`, `soi`, `road`, `PROVINCE_ID`, `AMPHUR_ID`, `DISTRICT`, `zipcode`, `lat`, `lng`, `for_fristname`, `for_surname`, `for_tel`, `for_telphone`, `for_rank`) VALUES
+(1, 'qwd qwd', '', '', '', '', 'qwdq qwdqwd', '', '', '', '', 43, 638, 'wqdqwd', 12345, '', '', '', '', '', '', ''),
+(2, 'qwd qwd', '', '', '', '', 'qwdq qwdqwd', '', '', '', '', 43, 638, 'wqdqwd', 12345, '', '', '', '', '', '', ''),
+(3, 'qwdqwdqw', '', '', '', '', 'wdqwdqw', '', '', '', '', 43, 638, 'qwdqwwdq', 21323, '', '', '', '', '', '', ''),
+(4, '', '', '', '', '', '666', '', '', '', '', 43, 640, '111111', 10240, '', '', '', '', '', '', ''),
+(5, 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', '', 11, 1, 'x', 12345, 'x', 'x', 'x', 'x', 'x', 'x', 'x'),
+(6, 'ชื่อ', 'นามส', '', '08', 'dev', 'bkk', '123/1', '1', 'เสรีไทย', 'เสรีไทย', 43, 638, 'ตำบล', 10240, '13.76172844995', '100.65279006958', '', '', '', '', ''),
+(7, 'ๆไก', 'ๆไกๆ', '', 'ไกๆไก', 'ๆไกๆไ', 'กๆไก', 'ๆไกๆไก', 'ๆไกๆไก', 'ๆไกๆไก', 'ไๆกๆ', 43, 638, 'ไกๆไก', 11111, '13.76172844995', '100.65279006958', '', '', '', '', ''),
+(8, 'wwwwwwwwwwwwwwwwwwwwww', 'wwwwwwwwwwwwwwww', 'wwwwwwwwww', 'wwwwwwwwww', 'wwwwwwwwwwwwwwww', 'wwwwwwwwwwwwwwwwww', 'wwwwwww', 'w', 'wwwwwwwwwwwwwwww', 'ww', 43, 638, 'www', 11111, '13.76172844995', '100.65279006958', 'wwwwwwwww', 'wwwwwww', 'wwwwwwww', 'wwwwwwwwww', 'wwwwwwwwww');
 
 -- --------------------------------------------------------
 
@@ -17726,7 +17755,7 @@ ALTER TABLE `provinces`
 -- AUTO_INCREMENT for table `user_data`
 --
 ALTER TABLE `user_data`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `zipcodes`
 --

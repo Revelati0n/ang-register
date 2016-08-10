@@ -37,7 +37,29 @@ $captcha = $request->response; //Captcha response send by client
         ));
     } else {
         include("dbconnect.php");
-        $sql ="INSERT INTO `user_data` (`name`, `PROVINCE_ID`, `AMPHUR_ID`, `DISTRICT`, `zipcode`, `position`) VALUES ('".$request->realname."', '".$request->PROVINCE_ID."', '".$request->AMPHURE_ID."', '".$request->DISTRICT."', '".$request->zipcode."', '".$request->position."')";
+        $sql ="INSERT INTO `user_data` (`firstname`, `surname`, `tel`, `telphone`, `rank`, `position`, `address`, `vilno`, `soi`, `road`, `PROVINCE_ID`, `AMPHUR_ID`, `DISTRICT`, `zipcode`, `lat`, `lng`, `for_fristname`, `for_surname`, `for_tel`, `for_telphone`, `for_rank`)
+        VALUES ('".$request->firstname."',
+               '".$request->surname."',
+               '".$request->tel."',
+               '".$request->telphone."',
+               '".$request->rank."',
+               '".$request->position."',
+               '".$request->address."',
+               '".$request->vilno."',
+               '".$request->soi."',
+               '".$request->road."',
+               '".$request->PROVINCE_ID."',
+               '".$request->AMPHURE_ID."',
+               '".$request->DISTRICT."',
+               '".$request->zipcode."',
+               '".$request->lat."',
+               '".$request->lng."',
+               '".$request->for_firstname."',
+               '".$request->for_surname."',
+               '".$request->for_tel."',
+               '".$request->for_telphone."',
+               '".$request->for_rank."'
+               )";
         $query = $mysqli->query($sql);
         $_SESSION["UID"] = $mysqli->insert_id;
         $mysqli->close();

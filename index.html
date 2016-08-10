@@ -64,13 +64,13 @@
           </div>
 
           <div class="form-group has-feedback" required>
-            <label class="control-label" for="telname">โทร</label>
-            <input type="text" class="form-control" id="tel" name="tel" ng-model="tel" placeholder="โทร" ng-minlength="9" ng-maxlength="9" ng-required="true" required>
+            <label class="control-label" for="telhome">โทร</label>
+            <input type="text" class="form-control" id="telhome" name="telhome" ng-model="telhome" placeholder="โทร">
           </div>
 
           <div class="form-group has-feedback" required>
-              <label class="control-label" for="tel">เบอร์มือถือ</label>
-              <input type="text" class="form-control" id="tel" name="telphone" ng-model="telphone" placeholder="เบอร์มือถือ" ng-required="true" required>
+              <label class="control-label" for="telphone">เบอร์มือถือ</label>
+              <input type="text" class="form-control" id="telphone" name="telphone" ng-model="telphone" placeholder="เบอร์มือถือ" required>
           </div>
 
           <div class="form-group has-feedback" required>
@@ -147,17 +147,47 @@
                     </div>
 
         </div>
-<div class="col-md-6 col-md-offset-3">
-  <center>
-    <div
-    vc-recaptcha
-    theme="'light'"
-    key="publicKey"
-    ></div>
-  <button type="button" class="btn btn-warning btn-lg" ng-click="state = 1"><i class="fa fa-step-backward" aria-hidden="true"></i> กลับ</button>
-  <button type="submit" ng-disabled="userForm.firstname.$invalid || userForm.surname.$invalid || userForm.rank.$invalid || userForm.telphone.$invalid || userForm.position.$invalid || userForm.address.$invalid || userForm.PROVINCE_ID.$invalid || userForm.AMPHURE_ID.$invalid || userForm.DISTRICTD.$invalid || userForm.zipcode.$invalid" class="btn btn-lg btn-success">บันทึก</button>
-</center>
-</div>
+        <hr>
+        <div class="text-center"><h3>และขอมอบให้</h3></div>
+        <div class="col-md-4">
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="for_firstname">ชื่อ</label>
+            <input type="text" class="form-control" id="for_firstname" name="for_firstname" ng-model="for_firstname" placeholder="ชื่อ" ng-minlength="2" ng-required="true" required>
+          </div>
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="for_surname">นามสกุล</label>
+            <input type="text" class="form-control" id="for_surname" name="for_surname" ng-model="for_surname" placeholder="นามสกุล" ng-minlength="2" ng-required="true" required>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+
+          <div class="form-group has-feedback" required>
+            <label class="control-label" for="for_telhome">โทร</label>
+            <input type="text" class="form-control" id="for_telhome" name="for_telhome" ng-model="for_telhome" placeholder="โทร">
+          </div>
+
+          <div class="form-group has-feedback" required>
+              <label class="control-label" for="for_telphone">เบอร์มือถือ</label>
+              <input type="text" class="form-control" id="for_telphone" name="for_telphone" ng-model="for_telphone" placeholder="เบอร์มือถือ" required>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="form-group has-feedback" required>
+              <label class="control-label" for="for_rank">ตำเหน่ง</label>
+              <input type="text" class="form-control" id="for_rank" name="for_rank" ng-model="for_rank" placeholder="ตำเหน่ง" ng-required="true" required>
+          </div>
+          <center>
+            <div
+            vc-recaptcha
+            theme="'light'"
+            key="publicKey"
+            ></div>
+            <button type="button" class="btn btn-warning btn-lg" ng-click="state = 1"><i class="fa fa-step-backward" aria-hidden="true"></i> กลับ</button>
+            <button type="submit" ng-disabled="userForm.firstname.$invalid || userForm.surname.$invalid || userForm.rank.$invalid || userForm.telphone.$invalid || userForm.position.$invalid || userForm.address.$invalid || userForm.PROVINCE_ID.$invalid || userForm.AMPHURE_ID.$invalid || userForm.DISTRICTD.$invalid || userForm.zipcode.$invalid" class="btn btn-lg btn-success">บันทึก</button>
+          </center>
+        </div>
 
     </div>
 
@@ -183,8 +213,6 @@
     <script>
     angular.module('registerApp', ['vcRecaptcha', 'ngMaps'])
     .controller('regCtrl', function ($scope, $timeout, $http, vcRecaptchaService) {
-
-            var myLatlng = {lat: 13.761728449950002, lng: 100.6527900695800};
       $scope.publicKey ='6LdVHSYTAAAAANHHmA2YVGHkCJBp7mY7gGr_gjza';
 
             $scope.state = 1;
@@ -206,15 +234,10 @@
           return { draggable: true };
         }
       };
-      $scope.lat = '';
-      $scope.lng = '';
       $scope.GEO_ID = '';
       $scope.PROVINCE_ID = '';
       $scope.AMPHURE_ID = '';
       $scope.DISTRICT_ID = '';
-      $scope.latsUpdate = function(value) {
-        $scope.lat = value;
-      };
       $scope.geographyUpdate = function(value) {
         if ($scope.GEO_ID != ''){
           $http({
@@ -228,7 +251,6 @@
             $scope.provinces = [];
             $scope.amphures = [];
             $scope.districts = [];
-
             $scope.provinces = response.data;
           });
         }else{
@@ -277,14 +299,28 @@
           }, function(){
             setTimeout(function(){
               var post_data = {
-                'realname': $scope.realname,
+                'lat': $scope.marker.position[0],
+                'lng': $scope.marker.position[1],
+                'firstname': $scope.firstname,
+                'surname': $scope.surname,
+                'tel': $scope.telhome,
+                'telphone': $scope.telphone,
+                'rank': $scope.rank,
+                'position': $scope.position,
+                'address': $scope.address,
+                'vilno': $scope.vilno,
+                'road': $scope.road,
+                'soi': $scope.soi,
                 'PROVINCE_ID': $scope.PROVINCE_ID,
                 'AMPHURE_ID': $scope.AMPHURE_ID,
                 'DISTRICT': $scope.DISTRICT,
                 'zipcode': $scope.zipcode,
-                'position': $scope.position,
-                'response':vcRecaptchaService.getResponse(),
-
+                'for_firstname': $scope.for_firstname,
+                'for_surname': $scope.for_surname,
+                'for_tel': $scope.for_telhome,
+                'for_telphone': $scope.for_telphone,
+                'for_rank': $scope.for_rank,
+                'response':vcRecaptchaService.getResponse()
               }
               console.log(post_data);
               $http.post('api/addRows.php',post_data).success(function(response){
