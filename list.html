@@ -22,17 +22,29 @@
                     <tr>
                       <th>#</th>
                       <th>ชื่อ - นามสกุล</th>
-                      <th>จังหวัด</th>
+                      <th>ตำแหน่ง</th>
+                      <th>โทร</th>
+                      <th>มือถือ</th>
+                      <th>ติดตั้งที่</th>
+                      <th>เลขที่</th>
+                      <th>หมู่ที่</th>
+                      <th>ซอย</th>
+                      <th>ถนน</th>
                       <th>อำเภอ</th>
                       <th>ตำบล</th>
+                      <th>จังหวัด</th>
                       <th>รหัสไปรษณีย์</th>
+                      <th>พิกัด</th>
+                      <th>ชื่อ - นามสกุล</th>
                       <th>ตำเหน่ง</th>
+                      <th>โทร</th>
+                      <th>มือถือ</th>
                     </tr>
                   </thead>
         <tbody>
           <tr>
 
-            <td colspan="7">
+            <td colspan="19">
               <div class="form-search search-only">
                   <i class="search-icon glyphicon glyphicon-search"></i>
                   <input type="text" class="form-control search-query" ng-model="find"  placeholder="ค้นหา ชื่อ - นามสกุล , จังหวัด , อำเภอ , ตำบล , รหัสไปรษณีย์ , ตำเหน่ง ...">
@@ -41,12 +53,24 @@
           </tr>
           <tr ng-repeat="n in datas | filter : find">
             <td>{{ n.ID }}</td>
-            <td>{{ n.name }}</td>
-            <td>{{ n.provine }}</td>
-            <td>{{ n.amphure }}</td>
-            <td>{{ n.district }}</td>
-            <td>{{ n.zipcode }}</td>
+            <td>{{ n.firstname }} {{n.surname}}</td>
+            <td>{{ n.rank }}</td>
+            <td>{{ n.tel }}</td>
+            <td>{{ n.telphone }}</td>
             <td>{{ n.position }}</td>
+            <td>{{ n.address }}</td>
+            <td>{{ n.vilno}}</td>
+            <td>{{ n.soi }}</td>
+            <td>{{ n.road }}</td>
+            <td>{{ n.DISTRICT }}</td>
+            <td>{{ n.AMPHUR_ID }}</td>
+            <td>{{ n.PROVINCE_ID }}</td>
+            <td>{{ n.zipcode }}</td>
+            <td>{{n.lat}} , {{n.lng}}</td>
+            <td>{{n.for_firstname}} {{n.for_surname}}</td>
+            <td>{{n.for_tel}}</td>
+            <td>{{n.for_telphone}}</td>
+            <td>{{n.rank}}</td>
           </tr>
         </tbody>
       </table>
