@@ -17,6 +17,7 @@
     <div class="row">
       <div class="text-center"><h2 class="animated fadeInLeft">บันทึกข้อมูลสำเร็จ</h2></div>
       <div class="col-md-8 col-md-offset-2">
+        <p ng-repeat="a in data">{{a}}</p>
       <table class="table animated fadeInRight">
                 <thead>
                   <tr>
@@ -66,25 +67,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="vendor/bootflat/js/bootstrap.min.js"></script>
     <script src="vendor/sweetalert/js/sweetalert.min.js"></script>
-    <script src="vendor/angular-recaptcha/js/angular-recaptcha.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDU1yjyz9CFKC1k2j8dLa2yOgo8gQsWuYQ&language=th"></script>
     <script src="vendor/angular-google-maps/ng-maps.js"></script>
   </body>
 </html>
 <script>
 angular.module('registerApp', ['ngMaps'])
-  .controller('regCtrl', function ($scope, $timeout, $http, vcRecaptchaService) {
+  .controller('regCtrl', function ($scope, $timeout, $http) {
     $http.post('api/getuid.php').success(function(response){
       console.log(response);
-    /*  if (response.code == 0){
-        $scope.data = response;
+      if (response.code == 1){
+        swal({title: "เกิดข้อผิดพลาด !", type: "error", confirmButtonText: "ตกลง"},function(){  window.location="index.html";});
       }else{
-        window.location="index.html";
-      } */
+        $scope.data = response;
+        }
     })
   /*  .error(function(error){
-      window.location="index.html";
-    }) */
+    //swal({title: "เกิดข้อผิดพลาด !", type: "error", confirmButtonText: "ตกลง"},function(){  window.location="index.html";});
+  })  */
 }
 
         )
