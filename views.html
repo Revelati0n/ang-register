@@ -11,48 +11,33 @@
     <link href="vendor/bootflat/css/bootflat.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="vendor/sweetalert/css/sweetalert.css" rel="stylesheet">
+    <style>
+    .google-map {
+      height: 500px;
+    }
+    </style>
   </head>
 <body>
   <div class="container" ng-app="registerApp" ng-controller="regCtrl">
     <div class="row">
       <div class="text-center"><h2 class="animated fadeInLeft">บันทึกข้อมูลสำเร็จ</h2></div>
       <div class="col-md-8 col-md-offset-2">
-        <p ng-repeat="a in data">{{a}}</p>
-      <table class="table animated fadeInRight">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>ข้อมูล</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>ชื่อ - นามสกุล</td>
-                    <td>{{data.name}}</td>
-                  </tr>
-                  <tr>
-                    <td>จังหวัด</td>
-                    <td>{{data.provine}}</td>
-                  </tr>
-                  <tr>
-                    <td>อำเภอ / เขต</td>
-                    <td>{{data.amphure}}</td>
-                  </tr>
-                  <tr>
-                    <td>ตำบล / แขวง</td>
-                    <td>{{data.district}}</td>
-                  </tr>
-                  <tr>
-                    <td>รหัสไปรษณีย์</td>
-                    <td>{{data.zipcode}}</td>
-                  </tr>
-                  <tr>
-                    <td>ตำเหน่ง</td>
-                    <td>{{data.position}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <hr>
+        <h5>ข้าพเจ้า ชื่อ : {{ data.firstname }} นามสกุล : {{ data.surname }} <br><br>
+          ตำแหน่ง : {{data.rank}} โทร : {{data.tel}} มือถือ : {{data.telphone}} <br><br>
+          ประสงค์ให้ติดตั้งบริการ ณ : {{data.position}} เลขที่ : {{data.address}} <br><br>
+          หมู่ที่ : {{data.vilno}} ซอย : {{data.soi}} <br><br>
+          ถนน : {{data.road}} ตำบล : {{data.DISTRICT}} <br><br>
+          อำเภอ : {{data.AMPHUR_ID}} จังหวัด : {{data.PROVINCE_ID}} <br><br>
+          รหัสไปรษณีย์ : {{data.zipcode}} พิกัด : ละติจูด {{data.lat}} , ลองจิจูด {{data.lng}}<br><br>
+          และขอมอบหมายให้ ชื่อ : {{data.for_fristname}} นามสกุล : {{data.for_surname}}<br><br>
+          ตำแหน่ง :  {{data.for_rank}}  เบอร์โทร : {{data.for_tel}} มือถือ : {{data.for_telphone}}
+
+        </h5>
+        <map ng-transclude class="google-map" center="map.center" events="map.events" options="map.options">
+          <infowindow position="infowindow.position">
+            <h4> จุดติดตั้ง </h4>
+          </infowindow>
+        </map>
               <div class="text-center animated fadeInDown">
               <a href="index.html" class="btn btn-sm btn-success" > <i class="fa fa-chevron-left" aria-hidden="true"></i> ย้อนกลับ</a>
             </div>
@@ -77,14 +62,33 @@ angular.module('registerApp', ['ngMaps'])
     $http.post('api/getuid.php').success(function(response){
       console.log(response);
       if (response.code == 1){
-        swal({title: "เกิดข้อผิดพลาด !", type: "error", confirmButtonText: "ตกลง"},function(){  window.location="index.html";});
+        swal({title: "เกิดข้อผิดพลาด !", type: "error", confirmButtonText: "ตกลง"},function(){  window.location="/";});
       }else{
-        $scope.data = response;
+            $scope.data = response;
+            $scope.map = {
+            center: [$scope.data.lat, $scope.data.lng],
+            options: function() {
+              return {
+                streetViewControl: true,
+                scrollwheel: true
+              }
+            },
+            events: {
+              click: function(e) {
+                $scope.infowindow.position = e.latLng;
+                $scope.$apply()
+              }
+            }
+          };
+
+          $scope.infowindow = {
+            position: [$scope.data.lat, $scope.data.lng]
+          }
         }
     })
-  /*  .error(function(error){
-    //swal({title: "เกิดข้อผิดพลาด !", type: "error", confirmButtonText: "ตกลง"},function(){  window.location="index.html";});
-  })  */
+    .error(function(error){
+    swal({title: "เกิดข้อผิดพลาด !", type: "error", confirmButtonText: "ตกลง"},function(){  window.location="/";});
+  })
 }
 
         )
